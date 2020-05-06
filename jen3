@@ -10,6 +10,7 @@ def mavenHome= tool name: 'maven 3.6.2'
   echo "Jenkins URL ${env.JENKINS_URL}"
   echo "JOB Name ${env.JOB_NAME}"
   
+  properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * *')])])
 stage('CheckoutCode')
 {
 git branch: 'development', credentialsId: '6d262af1-d58f-4cf8-8da4-c50c05757ff9', url: 'https://github.com/lingutla-1/maven-web-application.git'
