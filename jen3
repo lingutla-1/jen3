@@ -1,0 +1,44 @@
+node
+{
+
+def mavenHome= tool name: 'maven 3.6.2'
+
+stage('CheckoutCode')
+{
+git branch: 'development', credentialsId: '6d262af1-d58f-4cf8-8da4-c50c05757ff9', url: 'https://github.com/lingutla-1/maven-web-application.git'
+}
+
+stage('Build')
+{
+sh "${mavenHome}/bin/mvn clean package"
+}
+/*
+stage('SonarQubeReportExecution')
+{
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+
+stage('UploadArtifactsIntoNexus')
+{
+sh "${mavenHome}/bin/mvn clean deploy"
+}
+stage('DeployAppIntoTomcat')
+{
+sshagent(['9a6942d9-a9c6-4eee-adf8-9793f6eea5b6'])
+ {
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.127.222.222:/opt/apache-tomcat-9.0.34/webapps/"
+
+}
+
+}
+
+stage('EmailNotification')
+{
+emailext body: '''Build is over
+
+Regards,
+pallavi software solutions,
+begur,banglore.''', subject: 'Build is over', to: 'aadhyamodupalli10@gmail.com'
+}
+*/
+}
